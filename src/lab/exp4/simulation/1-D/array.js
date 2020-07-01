@@ -38,6 +38,12 @@ window.view = {
 	enableButton: function(buttonId) {
 		document.getElementById(buttonId).disabled = false
 	},
+	enableUserInput: function (buttonId) {
+		document.getElementById(buttonId).style.display = 'block'
+	},
+	disableUserInput: function (buttonId) {
+		document.getElementById(buttonId).style.display = 'none'
+	},
 	addClickEvent: function(id, method) {
 		var element = document.getElementById(id)
 		element.addEventListener('click', method, false)
@@ -69,21 +75,24 @@ window.view = {
 		else
 			alert( 'Size of the array must be an Integer !' )
 	},
-	generateRandomNumbers: function() {
+	generateRandomNumbers: function () {
+		this.disableUserInput('userInput')
 		var inputValue = this.getArraySize()
 		for ( i = 0 ; i < inputValue ; i++ ) {
 			var random = Math.floor(Math.random()*15)
 			this.numbers.push(String(random))
 		}
 	},
-	getUserInput: function() {
+	getUserInput: function () {
+		this.enableUserInput('userInput')
 		var inputValue = document.getElementById('userInput').value
 		inputValue = inputValue.replace(/\s/g, ',')
 		this.numbers = inputValue.split(',')
 	},
+
 	takeInputFromRadioBox: function() {
 		var element = document.getElementsByName('radio_group')
-		if ( element[0].checked )
+		if (element[0].checked)
 			this.generateRandomNumbers()
 		else if (element[1].checked)
 			this.getUserInput()
