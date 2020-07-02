@@ -17,7 +17,9 @@ body {
 	font-size: 4vh;
 	padding-top: 1.3vmin;
 }
-
+#userInput{
+    display: block;
+}
 
 .button, .buttonDisable{
 	position: relative;
@@ -385,6 +387,7 @@ body {
 
 .keyPosition {
     background: #F5B941;
+
 }
 
 .currentKeyPositionIndicator {

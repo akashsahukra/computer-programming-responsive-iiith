@@ -127,6 +127,25 @@ window.view = {
         image.className = 'arrowImage'
 		document.getElementById('sortingDiv').appendChild(image)
 	},
+	createarrow: function (left, top) {
+		var image = document.createElement('img')
+		image.src = 'https://img.icons8.com/metro/26/000000/long-arrow-up.png'
+		image.style.position = 'absolute'
+		image.style.left = left + 'px'
+		image.style.top = top  + '4px'
+        image.className = 'arrow'
+		document.getElementById('sortingDiv').appendChild(image)
+	},
+	removearrow: function () {  
+		var element = document.getElementsByTagName('img')
+		if ( element.length > 0 )
+			document.getElementById('sortingDiv').removeChild(element[1])
+	},
+	showarrow: function () {
+		var pos = this.getPositionOfElement1()
+		this.createarrow(pos[0], pos[1])
+	},
+
 	showCode: function() {
 		document.getElementById('1-dArray').className = 'show, codeLayout'
 	},
@@ -140,6 +159,15 @@ window.view = {
 	showImage: function() {
 		var pos = this.getPositionOfElement()
 		this.createImage(pos[0], pos[1])
+	},
+ 
+	getPositionOfElement1: function() {
+		var elements = document.getElementById('sortingDiv').childNodes
+		var posLeft = String(elements[this.i].offsetLeft + 1)
+		var posTop = String(elements[this.i].offsetTop + 4)
+		var position = []
+		position.push(posLeft, posTop)
+		return position
 	},
 	getPositionOfElement: function() {
 		var elements = document.getElementById('sortingDiv').childNodes
@@ -172,7 +200,8 @@ window.view = {
 				this.changeClass( 'btnStart', 'startButton buttonDisable' )
 				this.enableButton('btnNext')
 				this.changeClass( 'btnNext', 'button nextButton' )
-				this.changeClass( 'line1' , 'showDivInRed')
+				this.changeClass('line1', 'showDivInRed')
+				this.showarrow()
 			} 
 		}
 		else
@@ -183,6 +212,7 @@ window.view = {
 		document.getElementById('key').innerHTML = element[this.i].firstChild.innerHTML
 		var elements = document.getElementById('sortingDiv').childNodes
 		elements[this.i].firstChild.style.background = '#F5B941'
+		this.showarrow()
 	},
 	swapText: function() {
 		var elements = document.getElementById('sortingDiv').childNodes
@@ -196,6 +226,7 @@ window.view = {
 	showElementAsSorted: function() {
 		var elements = document.getElementById('sortingDiv').childNodes
 		elements[this.i - 1].firstChild.style.background = '#41B247'
+		
 	},
 	updateArray: function() {
 		var elements = document.getElementById('sortingDiv').childNodes
@@ -215,10 +246,12 @@ window.view = {
 	sortArray: function() {
 		this.lastRedDiv = this.getLastHighlightedDiv()
 		this.nextRedDiv = this.getNextDivToHighlight(this.lastRedDiv)
-		if ( this.lastRedDiv.id === 'line4' ) {
+		if (this.lastRedDiv.id === 'line4') {
+
 			this.showElementAsSorted()
 			if ( this.i < this.numbers.length ) {
 				this.highlightNextStep()
+				
 			}
 			else {
 				this.nextRedDiv = this.jumpTo('line15')
@@ -230,6 +263,7 @@ window.view = {
 			this.highlightNextStep()
 			this.j = this.i - 1
 			this.key = this.numbers[this.i]
+
 		}
 		else if ( this.lastRedDiv.id === 'line8' ) {
 			if ( this.j >= 0 && this.numbers[this.j] > this.key )
