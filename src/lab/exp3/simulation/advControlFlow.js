@@ -167,6 +167,10 @@ window.view = {
     	this.clearDivs()
     	var selected_loop = this.getSelectedLoop()
 		var inputValue = document.getElementById('simpleLoopInput').value
+		if (inputValue < 0 || inputValue > 20) {
+			alert("invalid input");
+			return true;
+		}
 		if (selected_loop === 'for' && inputValue !== '' && !isNaN(model.inp) )
 		{
 			this.displayLoop('forLoopContent', 'codeContentFor1')
@@ -276,6 +280,10 @@ window.view = {
 		this.getNestedInput()
 		this.clearDivs()
 		var inputValue = document.getElementById('nestedLoopInput').value
+		if (inputValue < 0 || inputValue > 20) {
+			alert('invalid input');
+			return false;
+		}
 		if ( inputValue !== '' && !isNaN(model.nestedInp) )
 		{
 			this.displayLoop('nestedLoopContent', 'codeContentNested1')
